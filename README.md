@@ -2,7 +2,7 @@
 
 #### install the dependencies
 ```
-pip install -r requirements.txt
+pip install -r requirement.txt
 ```
 ### run the script
 ```
