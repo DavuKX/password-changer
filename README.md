@@ -4,6 +4,11 @@
 ```
 pip install -r requirement.txt
 ```
+### change the user and password in main.py file
+```
+USER = 'root'
+PASSWORD = 'root'
+```
 ### run the script
 ```
 python main.py
