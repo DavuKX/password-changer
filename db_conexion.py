@@ -103,6 +103,32 @@ def get_user_by_area(cursor, area):
     cursor.execute(query)
     return cursor.fetchone()
 
+def get_user(cursor, username):
+    query = (f'''
+        SELECT 
+            CONCAT(lgc_users.first_name, ' ', lgc_users.last_name),
+            lgc_employees_view.appointment_name,
+            lgc_employees_view.department_name,
+            lgc_users.username
+        FROM lgc_users
+        INNER JOIN lgc_employees_view
+            ON lgc_users.username = lgc_employees_view.username
+        WHERE lgc_employees_view.username = "{username}"
+        LIMIT 1
+    ''')
+
+    cursor.execute(query)
+    return cursor.fetchone()
+
+def change_for_user(cursor, username):
+    query = (f'''
+        UPDATE lgc_users
+        SET lgc_users.password = SHA1("{username}")
+        WHERE lgc_users.username = "{username}"
+    ''')
+    cursor.execute(query)
+    return cursor.commit()
+
 if __name__ == '__main__':
 
     area = input('write the name of the area: ').upper()

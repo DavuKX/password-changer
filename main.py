@@ -5,7 +5,7 @@ PASSWORD = 'root'
 
 def main_page():
 
-    options = [1, 2, 3, 4]
+    options = [1, 2, 3, 4, 5]
 
     print('''
     Select what you want to do:
@@ -13,6 +13,7 @@ def main_page():
     2. Get a employee by area
     3. see the areas
     4. exit
+    5. Change password for employee
     ''')
 
     selection = int(input('write the number of the action: '))
@@ -61,6 +62,21 @@ def get_departments():
     end_connection(connection, cursor)
     return areas
 
+def get_employee():
+    username = input('Write the username: ')
+    connection, cursor = start_connection('lgc', USER, PASSWORD)
+    employee = get_user(cursor, username)
+    change_password_by_username(connection, cursor, employee[-1])
+    end_connection(connection, cursor)
+
+    return(f'''
+    Nombre: {employee[0]}
+    Cargo: {employee[1]}
+    Departamento: {employee[2]}
+    Usuario: {employee[3]}
+    Contraseña: {employee[3]}
+    ''')
+
 def exit():
     return ("Ciao...")
 
@@ -76,3 +92,7 @@ if __name__ == '__main__':
             print(department, ":", departments[department])
     elif selection == 4:
         print(exit())
+    elif selection == 5:
+        print(get_employee())
+    else:
+        print("Invalid selection")
